@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
+import reducer, { initialState } from '../state/reducer';
+import { ActionType } from '../state/action-types';
 
 const DateCounter: React.FC = () => {
-  const [count, setCount] = useState(0);
-  const [step, setStep] = useState(1);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { count, step} = state;
 
   // This mutates the date object.
   const date = new Date("june 21 2027");
   date.setDate(date.getDate() + count);
 
   const dec = () => {
-    setCount((count) => count - step);
+    dispatch({type: ActionType.DEC});
   }
 
   const inc = () => {
-    setCount((count) => count + step);
+    dispatch({type: ActionType.INC});
   }
 
   const defineCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCount(Number(e.target.value));
-
+    dispatch({type: ActionType.SET_COUNT, payload: Number(e.target.value)});
   }
 
   const defineStep = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStep(Number(e.target.value));
+    dispatch({type: ActionType.SET_STEP, payload: Number(e.target.value)});
   }
 
   const reset = () => {
-    setCount(0);
-    setStep(1);
+    dispatch({type: ActionType.RESET});
   }
 
   return (

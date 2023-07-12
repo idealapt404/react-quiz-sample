@@ -1,9 +1,10 @@
 import React from 'react';
+import DateCounter from './DateCounter';
 
 function App() {
   return (
     <div>
-      Hello
+      <DateCounter />
     </div>
   );
 }
