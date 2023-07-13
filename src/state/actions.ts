@@ -1,30 +1,46 @@
 import { ActionType } from './action-types';
+import { QuestionType } from './reducer';
 
-export interface DecAction {
-  type: ActionType.DEC;
+export interface DataReceivedAction {
+  type: ActionType.DATA_RECEIVED;
+  payload: QuestionType[];
 }
 
-export interface IncAction {
-  type: ActionType.INC;
+export interface DataFailedAction {
+  type: ActionType.DATA_FAILED;
 }
 
-export interface SetCountAction {
-  type: ActionType.SET_COUNT;
+export interface StartAction {
+  type: ActionType.START;
+}
+
+export interface NewAnswerAction {
+  type: ActionType.NEW_ANSWER;
   payload: number;
 }
 
-export interface SetStepAction {
-  type: ActionType.SET_STEP;
-  payload: number;
+export interface NextQuestionAction {
+  type: ActionType.NEXT_QUESTION;
 }
 
-export interface ResetAction {
-  type: ActionType.RESET;
+export interface FinishAction {
+  type: ActionType.FINISH;
+}
+
+export interface RestartAction {
+  type: ActionType.RESTART;
+}
+
+export interface TickAction {
+  type: ActionType.TICK;
 }
 
 export type Action =
-  | DecAction
-  | IncAction
-  | SetCountAction
-  | SetStepAction
-  | ResetAction;
+  | DataReceivedAction
+  | DataFailedAction
+  | StartAction
+  | NewAnswerAction
+  | NextQuestionAction
+  | FinishAction
+  | RestartAction
+  | TickAction;

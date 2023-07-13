@@ -1,7 +1,10 @@
 export enum ActionType {
-  DEC = 'dec',
-  INC = 'inc',
-  SET_COUNT = 'set_count',
-  SET_STEP = 'set_step',
-  RESET = 'reset',
+  DATA_RECEIVED = 'data_received',
+  DATA_FAILED = 'data_failed',
+  START = 'start',
+  NEW_ANSWER = 'new_answer',
+  NEXT_QUESTION = 'next_question',
+  FINISH = 'finish',
+  RESTART = 'restart',
+  TICK = 'tick',
 }
