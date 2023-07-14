@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Error: React.FC = () => {
+const ErrorMessage: React.FC = () => {
   return (
     <p className="error">
       <span>💥</span> There was an error fecthing questions.
@@ -8,4 +8,4 @@ const Error: React.FC = () => {
   );
 }
 
-export default Error;
+export default ErrorMessage;
