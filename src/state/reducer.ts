@@ -8,7 +8,7 @@ export type QuestionType = {
   points: number;
 }
 
-enum StateType {
+export enum StateType {
   LOADING = 'loading',
   ERROR = 'error',
   READY = 'ready',
@@ -16,25 +16,27 @@ enum StateType {
   FINISHED = 'finished',
 }
 
-interface QuestionState {
+export interface QuestionState {
   questions: QuestionType[];
   status: StateType;
-  index: number,
-  answer: string | null;
+  secondsRemaining: number;
+  index: number;
+  answer: number;
   points: number;
-  highscore: number;
-  secondsRemaining: number | null;
+  highScore: number;
 }
 
-export const initialState = {
+export const initialState: QuestionState = {
   questions: [],
   status: StateType.LOADING,
+  secondsRemaining: 0,
   index: 0,
-  answer: null,
+  answer: -1,
   points: 0,
-  highscore: 0,
-  secondsRemaining: null,
+  highScore: 0,
 };
+
+const SECS_PER_QUESTION = 30;
 
 const reducer = (state: QuestionState, action: Action) => {
   switch (action.type) {
@@ -43,7 +45,11 @@ const reducer = (state: QuestionState, action: Action) => {
     case ActionType.DATA_FAILED:
       return { ...state, status: StateType.ERROR };
     case ActionType.START:
-      return { ...state, status: StateType.ACTIVE };
+      return {
+        ...state,
+        status: StateType.ACTIVE,
+        secondsRemaining: state.questions.length * SECS_PER_QUESTION,
+      }
     case ActionType.NEW_ANSWER:
       const question = state.questions.at(state.index);
       return {
@@ -51,24 +57,26 @@ const reducer = (state: QuestionState, action: Action) => {
         answer: action.payload,
         points:
           action.payload === question?.correctOption
-            ? state.points + question.points
+            ? state.points + question?.points
             : state.points,
-      };
+      }
     case ActionType.NEXT_QUESTION:
-      return { ...state, index: state.index + 1, answer: null };
+      return { ...state, index: state.index + 1, answer: -1 }
     case ActionType.FINISH:
       return {
         ...state,
         status: StateType.FINISHED,
-        highscore: state.points > state.highscore ? state.points : state.highscore,
-      };
+        highScore:
+          state.points > state.highScore ? state.points : state.highScore,
+      }
     case ActionType.RESTART:
-      return { ...state, status: StateType.READY, questions: state.questions };
+      return { ...initialState, status: StateType.READY, questions: state.questions }
     case ActionType.TICK:
       return {
         ...state,
-        secondsRemaining: state.secondsRemaining ? state.secondsRemaining - 1 : null,
-        status: state.secondsRemaining === 0 ? StateType.FINISHED : state.status };
+        status: state.secondsRemaining === 0 ? StateType.FINISHED : state.status,
+        secondsRemaining: state.secondsRemaining - 1,
+      }
     default:
       throw new Error("Unknown action");
   }
