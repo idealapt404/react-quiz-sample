@@ -31,7 +31,6 @@ const QuizProvider: React.FC<ParentProps> = ({children}) => {
   );
 
   useEffect(() => {
-    console.log('useEffect to get data');
     fetch("http://localhost:9000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({type: ActionType.DATA_RECEIVED, payload: data}))

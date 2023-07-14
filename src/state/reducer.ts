@@ -1,7 +1,7 @@
 import { Action } from './actions';
 import { ActionType } from './action-types';
 
-export type QuestionType = {
+export interface QuestionType {
   question: string;
   options: string[];
   correctOption: number;
