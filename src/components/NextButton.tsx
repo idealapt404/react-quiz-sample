@@ -8,8 +8,9 @@ const NextButton: React.FC = () => {
   if (index < numQuestions - 1)
     return (
       <button
-        className={`btn btn-ui ${answer < 0 ? 'disabled' : ''}`}
+        className="btn btn-ui"
         onClick={() => dispatch({ type: ActionType.NEXT_QUESTION })}
+        disabled={answer < 0}
       >
         Next
       </button>
@@ -17,8 +18,9 @@ const NextButton: React.FC = () => {
   else if (index === numQuestions - 1)
     return (
       <button
-        className={`btn btn-ui ${answer < 0 ? 'disabled' : ''}`}
+        className="btn btn-ui"
         onClick={() => dispatch({ type: ActionType.FINISH })}
+        disabled={answer < 0}
       >
         Finish
       </button>
